@@ -1,0 +1,6 @@
+{
+  "short_name": "Mapsomethings Client",
+  "name": "Mapsomethings Client",
+  "start_url": ".",
+  "display": "standalone"
+}
