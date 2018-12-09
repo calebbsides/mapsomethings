@@ -1,4 +1,6 @@
-export const GET_ITEMS = 'GET_ITEMS';
-export const ADD_ITEM = 'ADD_ITEM';
-export const DELETE_ITEM = 'DELETE_ITEM';
-export const ITEMS_LOADING = 'ITEMS_LOADING';
+export const ADD_HEMISPHERE = 'ADD_HEMISPHERE';
+export const REMOVE_HEMISPHERE = 'REMOVE_HEMISPHERE';
+export const ADD_MARKER = 'ADD_MARKER';
+export const REMOVE_MARKER = 'REMOVE_MARKER';
+export const DELETE_MARKERS = 'DELETE_MARKERS';
+export const SET_MAP = 'SET_MAP';

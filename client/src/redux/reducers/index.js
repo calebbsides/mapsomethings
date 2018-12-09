@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import itemReducer from './item-reducer.js';
+import markerReducer from './marker-reducer.js';
+import mapReducer from './map-reducer';
 
 export default combineReducers({
-	item: itemReducer,
+	marker: markerReducer,
+	map: mapReducer,
 });

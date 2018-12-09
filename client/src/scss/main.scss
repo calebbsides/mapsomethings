@@ -1,3 +1,11 @@
-html, body, #root, .container, .row {
-    height: 100%;
+html,
+body,
+#root,
+.app-container,
+.app-row {
+	height: 100%;
+}
+
+.app-container {
+	padding: 0 !important;
 }
