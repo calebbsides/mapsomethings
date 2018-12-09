@@ -40,10 +40,10 @@ class Map extends Component {
 		return (
 			<div className="app-container container-fluid">
 				<div className="app-row row no-gutters">
-					<div className="col-3">
+					<div className="col-12 col-sm-5 col-lg-3">
 						<Legend />
 					</div>
-					<div className="col">
+					<div className="col-12 col-sm-7 col-lg-9">
 						<div id="map" />
 					</div>
 				</div>
