@@ -2,7 +2,7 @@ import * as types from '../actions/types';
 
 const initialState = {
 	map: null,
-	numMarkers: 100,
+	numMarkers: 2000,
 };
 
 const mapReducer = (state = initialState, action) => {
