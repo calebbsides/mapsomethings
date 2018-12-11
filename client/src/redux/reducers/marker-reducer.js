@@ -27,6 +27,11 @@ const markerReducer = (state = initialState, action) => {
 				...state,
 				markers: state.markers.filter(marker => marker !== action.data),
 			};
+		case types.SET_MARKERS:
+			return {
+				...state,
+				markers: action.data,
+			};
 		case types.DELETE_MARKERS:
 			return {
 				...state,

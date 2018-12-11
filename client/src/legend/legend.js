@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {
 	addHemisphere,
 	removeHemisphere,
+	setMarkers,
 	deleteMarkers,
-	generateMarkers,
 } from '../redux/actions/marker-actions';
 
 import './scss/legend.scss';
@@ -21,6 +21,21 @@ class Legend extends Component {
 	componentDidUpdate() {
 		this.filterMarkers();
 	}
+
+	handleKeyCheckbox = e => {
+		const { markers } = this.props.marker;
+		const { map } = this.props.map;
+
+		let hemisphere = e.target.value;
+		let isChecked = e.target.checked;
+		let filteredMarkers = markers.filter(marker => marker.hemisphere === hemisphere);
+
+		let value = isChecked ? map : null;
+
+		for (let marker of filteredMarkers) {
+			marker.marker.setMap(value);
+		}
+	};
 
 	filterMarkers = () => {
 		const { hemispheres } = this.props.marker;
@@ -45,12 +60,16 @@ class Legend extends Component {
 		}
 	};
 
+	// Returns the number of markers in that hemisphere
 	getNumHemisphere(key) {
-		if (this.props.marker.markers) {
-			return this.props.marker.markers.filter(marker => marker.hemisphere === key).length;
+		const { markers } = this.props.marker;
+
+		if (markers) {
+			return markers.filter(marker => marker.hemisphere === key).length;
 		}
 	}
 
+	// Function to set the values of our keys object based on number of markers in that hemisphere
 	buildKey() {
 		for (var key in keys) {
 			if (keys.hasOwnProperty(key)) {
@@ -73,7 +92,7 @@ class Legend extends Component {
 								type="checkbox"
 								name={key}
 								value={key}
-								onChange={this.filterMarkers}
+								onChange={this.handleKeyCheckbox}
 								defaultChecked
 							/>
 						</div>
@@ -93,16 +112,19 @@ class Legend extends Component {
 
 	refreshMap = () => {
 		const { markers } = this.props.marker;
-		const { map } = this.props.map;
-		const { numMarkers } = this.props.map;
+		const { map, numMarkers } = this.props.map;
 
+		// Remove markers from the UI
 		for (let i = 0; i < markers.length; i++) {
 			const { marker } = markers[i];
 			marker.setMap(null);
 		}
 
+		// Remove markers from the store
 		this.props.deleteMarkers();
-		this.props.generateMarkers(map, numMarkers);
+
+		// Set new markers
+		this.props.setMarkers(map, numMarkers);
 	};
 
 	render() {
@@ -162,5 +184,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addHemisphere, removeHemisphere, deleteMarkers, generateMarkers },
+	{ addHemisphere, removeHemisphere, deleteMarkers, setMarkers },
 )(Legend);

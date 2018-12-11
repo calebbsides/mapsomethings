@@ -5,8 +5,8 @@ import Legend from '../legend/legend';
 
 import './scss/map.scss';
 
-import { generateMarkers } from '../redux/actions/marker-actions';
-import { setMap } from '../redux/actions/map-actions';
+import { setMarkers } from '../redux/actions/marker-actions';
+import { initMap } from '../redux/actions/map-actions';
 
 class Map extends Component {
 	componentDidMount() {
@@ -16,25 +16,12 @@ class Map extends Component {
 		googleAPIScript.async = true;
 		document.body.appendChild(googleAPIScript);
 
-		this.initMap();
+		const { map, numMarkers } = this.props.map;
+
+		this.props.initMap().then(() => {
+			this.props.setMarkers(map, numMarkers);
+		});
 	}
-
-	initMap = () => {
-		window.initMap = () => {
-			const map = new window.google.maps.Map(document.getElementById('map'), {
-				center: {
-					lat: 0,
-					lng: 0,
-				},
-				zoom: 3,
-				disableDefaultUI: true,
-			});
-
-			this.props.setMap(map);
-
-			this.props.generateMarkers(map, this.props.map.numMarkers);
-		};
-	};
 
 	render() {
 		return (
@@ -61,5 +48,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ generateMarkers, setMap },
+	{ setMarkers, initMap },
 )(Map);
